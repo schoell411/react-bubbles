@@ -20,10 +20,9 @@ const ColorList = ({ colors, updateColors }) => {
 		axiosWithAuth()
 			.put(`api/colors/${colorToEdit.id}`, colorToEdit)
 			.then(response => {
-				updateColors(response.data);
+				setColorToEdit(response.data);
 			})
 			.catch(error => console.log(error));
-
 		setEditing(false);
 	};
 
