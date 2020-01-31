@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import axiosWithAuth from "../utils/axiosWithAuth";
 
-const Login = () => {
+const Login = props => {
 	const [user, setUser] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -20,6 +21,14 @@ const Login = () => {
 			username: user,
 			password: password
 		};
+
+		axiosWithAuth()
+			.post("http://localhost:5000/api/login", credentials)
+			.then(response => {
+				localStorage.setItem("token", response.data.payload);
+				props.history.push("/bubble-page");
+			})
+			.catch(error => console.log(error));
 	};
 
 	return (
